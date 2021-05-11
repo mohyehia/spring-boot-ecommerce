@@ -34,7 +34,7 @@ class UserServiceTest {
     }
 
     @Test
-    void whenCallingSaveUser_userIsSavedSuccessfully() {
+    void when_callingSaveUser_then_userIsSavedSuccessfully() {
         User user = populateRandomUser();
         BDDMockito.given(userDAO.save(Mockito.any(User.class))).willReturn(user);
         User savedUser = userService.save(user);
