@@ -1,7 +1,6 @@
 package com.mohyehia.ecommerce.aop;
 
-import org.apache.juli.logging.Log;
-import org.apache.juli.logging.LogFactory;
+import lombok.extern.log4j.Log4j2;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -12,28 +11,39 @@ import java.util.Arrays;
 
 @Component
 @Aspect
+@Log4j2
 public class AppLogger {
-    private final Log log = LogFactory.getLog(this.getClass());
 
     @Around("execution(* com.mohyehia.ecommerce.controller..*.*(..))")
     public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        log.info(joinPoint.getTarget().getClass().getName()
-                + " :: " +
-                joinPoint.getSignature().getName() + " :: start");
-        log.info("executing function " +
-                joinPoint.getSignature().getName() +
-                " with arguments = " +
-                Arrays.toString(joinPoint.getArgs()));
+        logMethodStatus(joinPoint, "start");
+        logMethodArguments(joinPoint);
         StopWatch stopWatch = new StopWatch();
         stopWatch.start();
         Object returnedValue = joinPoint.proceed();
         stopWatch.stop();
-        log.info(joinPoint.getTarget().getClass().getName()
-                + " :: " +
-                joinPoint.getSignature().getName() + " :: execution time is =>" + stopWatch.getTotalTimeMillis() + " ms");
-        log.info(joinPoint.getTarget().getClass().getName()
-                + " :: " +
-                joinPoint.getSignature().getName() + " :: end");
+        logMethodExecutionTime(joinPoint, stopWatch.getTotalTimeMillis());
+        logMethodStatus(joinPoint, "end");
         return returnedValue;
+    }
+
+    private void logMethodStatus(ProceedingJoinPoint joinPoint, String status) {
+        log.info("{} :: {} :: {}",
+                joinPoint.getTarget().getClass().getName(),
+                joinPoint.getSignature().getName(),
+                status);
+    }
+
+    private void logMethodArguments(ProceedingJoinPoint joinPoint) {
+        log.info("executing function {} with arguments = {}",
+                joinPoint.getSignature().getName(),
+                Arrays.toString(joinPoint.getArgs()));
+    }
+
+    private void logMethodExecutionTime(ProceedingJoinPoint joinPoint, long executionTime) {
+        log.info("{} :: {} :: execution time is =>{} ms",
+                joinPoint.getTarget().getClass().getName(),
+                joinPoint.getSignature().getName(),
+                executionTime);
     }
 }

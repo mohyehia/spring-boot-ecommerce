@@ -20,14 +20,14 @@ import java.util.List;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ApiGlobalException.class)
-    public ResponseEntity<ResponseError> handleApiExceptions(ApiGlobalException e, WebRequest request) {
-        ResponseError responseError = new ResponseError(e.getMessage(), request.getDescription(false), ExceptionUtils.getStackTrace(e));
-        return new ResponseEntity<>(responseError, e.getStatusCode());
+    public ResponseEntity<ResponseError> handleApiExceptions(ApiGlobalException ex, WebRequest request) {
+        ResponseError responseError = new ResponseError(ex.getMessage(), request.getDescription(false), ExceptionUtils.getStackTrace(ex));
+        return new ResponseEntity<>(responseError, ex.getStatusCode());
     }
 
     @ExceptionHandler(RuntimeException.class)
-    public ResponseEntity<ResponseError> handleAllUncaughtExceptions(RuntimeException e, WebRequest request) {
-        ResponseError responseError = new ResponseError(e.getMessage(), request.getDescription(false), ExceptionUtils.getStackTrace(e));
+    public ResponseEntity<ResponseError> handleAllUncaughtExceptions(RuntimeException ex, WebRequest request) {
+        ResponseError responseError = new ResponseError(ex.getMessage(), request.getDescription(false), ExceptionUtils.getStackTrace(ex));
         return new ResponseEntity<>(responseError, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
