@@ -2,7 +2,7 @@ package com.mohyehia.ecommerce.service;
 
 import com.github.javafaker.Faker;
 import com.mohyehia.ecommerce.entity.User;
-import com.mohyehia.ecommerce.service.impl.UserServiceImpl;
+import com.mohyehia.ecommerce.service.framework.UserService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +22,7 @@ import java.util.Locale;
 class UserServiceTest {
 
     @Mock
-    private UserServiceImpl userService;
+    private UserService userService;
 
     private static Faker faker;
 
@@ -42,7 +42,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("test finding user by username will return the user")
-    void when_calling_find_by_exists_username_then_user_is_returned(){
+    void when_calling_find_by_exists_username_then_user_is_returned() {
         User user = populateRandomUser();
         BDDMockito.given(userService.findByUsername(ArgumentMatchers.anyString())).willReturn(user);
         User retrievedUser = userService.findByUsername(user.getUsername());
@@ -52,7 +52,7 @@ class UserServiceTest {
 
     @Test
     @DisplayName("test finding user by email address will return the user")
-    void when_calling_find_by_exists_email_address_then_user_is_returned(){
+    void when_calling_find_by_exists_email_address_then_user_is_returned() {
         User user = populateRandomUser();
         BDDMockito.given(userService.findByEmail(ArgumentMatchers.anyString())).willReturn(user);
         User retrievedUser = userService.findByEmail(user.getEmail());
