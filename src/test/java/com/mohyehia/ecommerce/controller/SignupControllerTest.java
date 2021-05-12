@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
@@ -39,6 +40,9 @@ class SignupControllerTest {
     private static Faker faker;
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private MessageSource messageSource;
 
     @MockBean
     private UserServiceImpl userService;
@@ -60,20 +64,7 @@ class SignupControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(signupRequest))
         ).andExpect(status().isCreated())
-                .andExpect(jsonPath("$.message", CoreMatchers.equalTo("User created successfully!")));
-    }
-
-    private User populateValidUser(SignupRequest signupRequest) {
-        User user = new User();
-        user.setUsername(signupRequest.getUsername());
-        user.setEmail(signupRequest.getEmail());
-        user.setFirstName(signupRequest.getFirstName());
-        user.setLastName(signupRequest.getLastName());
-        user.setPassword(signupRequest.getPassword());
-        Set<Role> roles = new HashSet<>();
-        roles.add(new Role(AppConstants.ROLE_CUSTOMER));
-        user.setRoles(roles);
-        return user;
+                .andExpect(jsonPath("$.message", CoreMatchers.equalTo(messageSource.getMessage("SIGNUP_REQUEST_USER_CREATED_SUCCESSFULLY", new Object[]{}, Locale.ENGLISH))));
     }
 
     @Test
@@ -104,7 +95,7 @@ class SignupControllerTest {
         Assertions.assertThat(resolvedException)
                 .isNotNull()
                 .isInstanceOf(ConflictException.class)
-                .hasMessageContaining("User with the same username already exists");
+                .hasMessageContaining(messageSource.getMessage("SIGNUP_REQUEST_USERNAME_ALREADY_EXISTS", new Object[]{}, Locale.ENGLISH));
     }
 
     @Test
@@ -125,7 +116,7 @@ class SignupControllerTest {
         Assertions.assertThat(resolvedException)
                 .isNotNull()
                 .isInstanceOf(ConflictException.class)
-                .hasMessageContaining("User with the same email address already exists");
+                .hasMessageContaining(messageSource.getMessage("SIGNUP_REQUEST_EMAIL_ADDRESS_ALREADY_EXISTS", new Object[]{}, Locale.ENGLISH));
     }
 
     private SignupRequest populateRandomSignupRequest() {
@@ -137,6 +128,19 @@ class SignupControllerTest {
         signupRequest.setPassword("P@ssw0rd123");
         signupRequest.setConfirmPassword("P@ssw0rd123");
         return signupRequest;
+    }
+
+    private User populateValidUser(SignupRequest signupRequest) {
+        User user = new User();
+        user.setUsername(signupRequest.getUsername());
+        user.setEmail(signupRequest.getEmail());
+        user.setFirstName(signupRequest.getFirstName());
+        user.setLastName(signupRequest.getLastName());
+        user.setPassword(signupRequest.getPassword());
+        Set<Role> roles = new HashSet<>();
+        roles.add(new Role(AppConstants.ROLE_CUSTOMER));
+        user.setRoles(roles);
+        return user;
     }
 
     private SignupRequest populateInvalidSignupRequest() {
