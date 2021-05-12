@@ -5,7 +5,7 @@ import com.mohyehia.ecommerce.dao.UserDAO;
 import com.mohyehia.ecommerce.entity.User;
 import com.mohyehia.ecommerce.service.impl.UserServiceImpl;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -26,10 +26,10 @@ class UserServiceTest {
     @InjectMocks
     private UserServiceImpl userService;
 
-    private Faker faker;
+    private static Faker faker;
 
-    @BeforeEach
-    void initializeFaker() {
+    @BeforeAll
+    static void initializeFaker() {
         faker = new Faker(Locale.ENGLISH);
     }
 
