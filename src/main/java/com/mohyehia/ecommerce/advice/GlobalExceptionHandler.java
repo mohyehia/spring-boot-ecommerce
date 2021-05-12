@@ -13,6 +13,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.List;
@@ -23,6 +24,12 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<ResponseError> handleApiExceptions(ApiGlobalException ex, WebRequest request) {
         ResponseError responseError = new ResponseError(ex.getMessage(), request.getDescription(false), ExceptionUtils.getStackTrace(ex));
         return new ResponseEntity<>(responseError, ex.getStatusCode());
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ResponseError> handleMethodArgumentTypeMismatchExceptions(ApiGlobalException ex, WebRequest request) {
+        ResponseError responseError = new ResponseError(ex.getMessage(), request.getDescription(false), ExceptionUtils.getStackTrace(ex));
+        return new ResponseEntity<>(responseError, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(RuntimeException.class)

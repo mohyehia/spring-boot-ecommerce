@@ -9,7 +9,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final String[] PUBLIC_ENDPOINTS = {"/api/**/login", "/api/**/signup"};
+    private static final String[] PUBLIC_ENDPOINTS = {"/api/**/login", "/api/**/signup", "/api/**/categories/**"};
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
