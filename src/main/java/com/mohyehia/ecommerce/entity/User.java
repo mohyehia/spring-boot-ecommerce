@@ -1,6 +1,8 @@
 package com.mohyehia.ecommerce.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,6 +48,8 @@ public class User implements UserDetails {
     private boolean locked;
 
     @Column(name = "PASSWORD")
+    @ToString.Exclude
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

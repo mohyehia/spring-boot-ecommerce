@@ -1,15 +1,15 @@
 package com.mohyehia.ecommerce.service;
 
 import com.github.javafaker.Faker;
-import com.mohyehia.ecommerce.dao.UserDAO;
 import com.mohyehia.ecommerce.entity.User;
 import com.mohyehia.ecommerce.service.impl.UserServiceImpl;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -20,25 +20,44 @@ import java.util.Locale;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
-    @Mock
-    private UserDAO userDAO;
 
-    @InjectMocks
+    @Mock
     private UserServiceImpl userService;
 
-    private Faker faker;
+    private static Faker faker;
 
-    @BeforeEach
-    void initializeFaker() {
+    @BeforeAll
+    static void initializeFaker() {
         faker = new Faker(Locale.ENGLISH);
     }
 
     @Test
+    @DisplayName("test when saving new user it will be saved to db")
     void when_calling_save_function_then_user_is_saved_successfully() {
         User user = populateRandomUser();
-        BDDMockito.given(userDAO.save(Mockito.any(User.class))).willReturn(user);
+        BDDMockito.given(userService.save(Mockito.any(User.class))).willReturn(user);
         User savedUser = userService.save(user);
         Assertions.assertThat(savedUser.getUsername()).isEqualTo(user.getUsername());
+    }
+
+    @Test
+    @DisplayName("test finding user by username will return the user")
+    void when_calling_find_by_exists_username_then_user_is_returned(){
+        User user = populateRandomUser();
+        BDDMockito.given(userService.findByUsername(ArgumentMatchers.anyString())).willReturn(user);
+        User retrievedUser = userService.findByUsername(user.getUsername());
+        Assertions.assertThat(retrievedUser).isNotNull();
+        Assertions.assertThat(retrievedUser.getFirstName()).isEqualTo(user.getFirstName());
+    }
+
+    @Test
+    @DisplayName("test finding user by email address will return the user")
+    void when_calling_find_by_exists_email_address_then_user_is_returned(){
+        User user = populateRandomUser();
+        BDDMockito.given(userService.findByEmail(ArgumentMatchers.anyString())).willReturn(user);
+        User retrievedUser = userService.findByEmail(user.getEmail());
+        Assertions.assertThat(retrievedUser).isNotNull();
+        Assertions.assertThat(retrievedUser.getUsername()).isEqualTo(user.getUsername());
     }
 
     private User populateRandomUser() {
