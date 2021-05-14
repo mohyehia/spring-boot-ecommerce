@@ -50,7 +50,7 @@ public class JwtTokenProvider {
                 && isNotExpiredToken(token);
     }
 
-    private String retrieveUsernameFromToken(String token) {
+    public String retrieveUsernameFromToken(String token) {
         Claims claims = getClaims(token);
         return claims == null ? null : claims.getSubject();
     }
