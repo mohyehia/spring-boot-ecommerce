@@ -1,4 +1,4 @@
-package com.mohyehia.ecommerce.entity.api.request;
+package com.mohyehia.ecommerce.model.api.request;
 
 import com.mohyehia.ecommerce.validator.PasswordConfirmation;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.mohyehia.ecommerce.entity.api;
+package com.mohyehia.ecommerce.model.api;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

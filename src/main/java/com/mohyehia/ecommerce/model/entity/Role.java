@@ -1,4 +1,4 @@
-package com.mohyehia.ecommerce.entity;
+package com.mohyehia.ecommerce.model.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

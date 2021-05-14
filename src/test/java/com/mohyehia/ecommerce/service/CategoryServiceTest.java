@@ -1,7 +1,7 @@
 package com.mohyehia.ecommerce.service;
 
 import com.github.javafaker.Faker;
-import com.mohyehia.ecommerce.entity.Category;
+import com.mohyehia.ecommerce.model.entity.Category;
 import com.mohyehia.ecommerce.service.framework.CategoryService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

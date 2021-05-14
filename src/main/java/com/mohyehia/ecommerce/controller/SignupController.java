@@ -1,8 +1,8 @@
 package com.mohyehia.ecommerce.controller;
 
-import com.mohyehia.ecommerce.entity.User;
-import com.mohyehia.ecommerce.entity.api.request.SignupRequest;
-import com.mohyehia.ecommerce.entity.api.response.SignupResponse;
+import com.mohyehia.ecommerce.model.entity.User;
+import com.mohyehia.ecommerce.model.api.request.SignupRequest;
+import com.mohyehia.ecommerce.model.api.response.SignupResponse;
 import com.mohyehia.ecommerce.exception.ConflictException;
 import com.mohyehia.ecommerce.service.framework.UserService;
 import lombok.RequiredArgsConstructor;

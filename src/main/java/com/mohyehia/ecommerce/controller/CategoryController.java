@@ -1,9 +1,13 @@
 package com.mohyehia.ecommerce.controller;
 
-import com.mohyehia.ecommerce.entity.Category;
-import com.mohyehia.ecommerce.entity.api.response.CategoryResponse;
 import com.mohyehia.ecommerce.exception.ResourceNotFoundException;
+import com.mohyehia.ecommerce.model.api.response.CategoryProductsResponse;
+import com.mohyehia.ecommerce.model.api.response.CategoryResponse;
+import com.mohyehia.ecommerce.model.api.response.ProductResponse;
+import com.mohyehia.ecommerce.model.entity.Category;
+import com.mohyehia.ecommerce.model.entity.Product;
 import com.mohyehia.ecommerce.service.framework.CategoryService;
+import com.mohyehia.ecommerce.service.framework.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -21,6 +25,7 @@ import java.util.Locale;
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
+    private final ProductService productService;
     private final MessageSource messageSource;
 
     @GetMapping
@@ -39,5 +44,15 @@ public class CategoryController {
             throw new ResourceNotFoundException(messageSource.getMessage("CATEGORY_NOT_FOUND", new Object[]{}, locale));
         }
         return new ResponseEntity<>(category, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/products")
+    public ResponseEntity<CategoryProductsResponse> findCategoryProducts(@PathVariable("id") int categoryId, Locale locale) {
+        Category category = categoryService.findById(categoryId);
+        if (category == null) {
+            throw new ResourceNotFoundException(messageSource.getMessage("CATEGORY_NOT_FOUND", new Object[]{}, locale));
+        }
+        List<Product> products = productService.findByCategoryId(categoryId);
+        return new ResponseEntity<>(new CategoryProductsResponse(category, new ProductResponse(products)), HttpStatus.OK);
     }
 }
