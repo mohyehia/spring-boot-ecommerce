@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class ProductControllerSpringContext extends GlobalSpringContext {
+class ProductControllerTest extends GlobalSpringContext {
 
     @BeforeAll
     static void initializeFaker() {

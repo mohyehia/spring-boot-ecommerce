@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class SignupControllerSpringContext extends GlobalSpringContext {
+class SignupControllerTest extends GlobalSpringContext {
 
     @Test
     @DisplayName("Test adding new user with valid fields")

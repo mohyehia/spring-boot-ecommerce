@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class CategoryControllerSpringContext extends GlobalSpringContext {
+class CategoryControllerTest extends GlobalSpringContext {
     @Test
     @DisplayName("test retrieving all categories")
     void when_calling_retrieve_categories_endpoint_then_return_all_categories() throws Exception {
