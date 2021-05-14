@@ -33,3 +33,6 @@ logging:
         type:
           descriptor:
             sql: trace
+
+jwtSecret: JWTSuperSecretKey
+jwtExpirationInMs: 604800000
