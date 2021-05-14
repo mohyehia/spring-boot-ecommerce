@@ -1,6 +1,6 @@
 package com.mohyehia.ecommerce.service.framework;
 
-import com.mohyehia.ecommerce.entity.Category;
+import com.mohyehia.ecommerce.model.entity.Category;
 
 import java.util.List;
 

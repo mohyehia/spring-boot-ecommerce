@@ -1,4 +1,4 @@
-package com.mohyehia.ecommerce.entity;
+package com.mohyehia.ecommerce.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

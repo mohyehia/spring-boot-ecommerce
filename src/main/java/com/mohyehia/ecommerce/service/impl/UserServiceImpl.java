@@ -2,8 +2,8 @@ package com.mohyehia.ecommerce.service.impl;
 
 import com.mohyehia.ecommerce.constant.AppConstants;
 import com.mohyehia.ecommerce.dao.UserDAO;
-import com.mohyehia.ecommerce.entity.Role;
-import com.mohyehia.ecommerce.entity.User;
+import com.mohyehia.ecommerce.model.entity.Role;
+import com.mohyehia.ecommerce.model.entity.User;
 import com.mohyehia.ecommerce.service.framework.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;

@@ -1,6 +1,6 @@
-package com.mohyehia.ecommerce.entity.api.response;
+package com.mohyehia.ecommerce.model.api.response;
 
-import com.mohyehia.ecommerce.entity.Category;
+import com.mohyehia.ecommerce.model.entity.Category;
 import lombok.Data;
 
 import java.util.List;

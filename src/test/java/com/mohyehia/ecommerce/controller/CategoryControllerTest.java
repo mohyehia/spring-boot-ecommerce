@@ -1,8 +1,7 @@
 package com.mohyehia.ecommerce.controller;
 
 import com.github.javafaker.Faker;
-import com.mohyehia.ecommerce.entity.Category;
-import com.mohyehia.ecommerce.exception.ConflictException;
+import com.mohyehia.ecommerce.model.entity.Category;
 import com.mohyehia.ecommerce.exception.ResourceNotFoundException;
 import com.mohyehia.ecommerce.service.framework.CategoryService;
 import org.assertj.core.api.Assertions;

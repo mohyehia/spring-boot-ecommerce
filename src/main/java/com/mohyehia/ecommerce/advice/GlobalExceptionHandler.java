@@ -1,7 +1,7 @@
 package com.mohyehia.ecommerce.advice;
 
-import com.mohyehia.ecommerce.entity.api.ResponseError;
-import com.mohyehia.ecommerce.entity.api.ValidationError;
+import com.mohyehia.ecommerce.model.api.ResponseError;
+import com.mohyehia.ecommerce.model.api.ValidationError;
 import com.mohyehia.ecommerce.exception.ApiGlobalException;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpHeaders;

@@ -1,6 +1,6 @@
 package com.mohyehia.ecommerce.service.framework;
 
-import com.mohyehia.ecommerce.entity.User;
+import com.mohyehia.ecommerce.model.entity.User;
 
 public interface UserService {
     User save(User user);

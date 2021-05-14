@@ -1,6 +1,6 @@
-package com.mohyehia.ecommerce.entity.api.response;
+package com.mohyehia.ecommerce.model.api.response;
 
-import com.mohyehia.ecommerce.entity.User;
+import com.mohyehia.ecommerce.model.entity.User;
 import lombok.Data;
 
 @Data

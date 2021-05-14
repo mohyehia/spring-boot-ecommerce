@@ -1,7 +1,7 @@
 package com.mohyehia.ecommerce.service.impl;
 
 import com.mohyehia.ecommerce.dao.CategoryDAO;
-import com.mohyehia.ecommerce.entity.Category;
+import com.mohyehia.ecommerce.model.entity.Category;
 import com.mohyehia.ecommerce.service.framework.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
