@@ -1,25 +1,17 @@
 package com.mohyehia.ecommerce.controller;
 
-import com.github.javafaker.Faker;
 import com.mohyehia.ecommerce.exception.ResourceNotFoundException;
 import com.mohyehia.ecommerce.model.entity.Category;
 import com.mohyehia.ecommerce.model.entity.Product;
-import com.mohyehia.ecommerce.service.framework.CategoryService;
-import com.mohyehia.ecommerce.service.framework.ProductService;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
@@ -34,26 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class CategoryControllerTest {
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private MessageSource messageSource;
-
-    @MockBean
-    private CategoryService categoryService;
-
-    @MockBean
-    private ProductService productService;
-
-    private static Faker faker;
-
-    @BeforeAll
-    static void initializeFaker() {
-        faker = new Faker(Locale.ENGLISH);
-    }
-
+class CategoryControllerSpringContext extends GlobalSpringContext {
     @Test
     @DisplayName("test retrieving all categories")
     void when_calling_retrieve_categories_endpoint_then_return_all_categories() throws Exception {

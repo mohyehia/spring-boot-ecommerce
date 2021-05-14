@@ -1,28 +1,19 @@
 package com.mohyehia.ecommerce.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.javafaker.Faker;
 import com.mohyehia.ecommerce.constant.AppConstants;
+import com.mohyehia.ecommerce.exception.ConflictException;
+import com.mohyehia.ecommerce.model.api.request.SignupRequest;
 import com.mohyehia.ecommerce.model.entity.Role;
 import com.mohyehia.ecommerce.model.entity.User;
-import com.mohyehia.ecommerce.model.api.request.SignupRequest;
-import com.mohyehia.ecommerce.exception.ConflictException;
-import com.mohyehia.ecommerce.service.framework.UserService;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.CoreMatchers;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.MessageSource;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 
@@ -34,23 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@SpringBootTest
-@AutoConfigureMockMvc
-class SignupControllerTest {
-    private static Faker faker;
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private MessageSource messageSource;
-
-    @MockBean
-    private UserService userService;
-
-    @BeforeAll
-    static void initializeFaker() {
-        faker = new Faker(Locale.ENGLISH);
-    }
+class SignupControllerSpringContext extends GlobalSpringContext {
 
     @Test
     @DisplayName("Test adding new user with valid fields")
