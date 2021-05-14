@@ -1,6 +1,6 @@
 package com.mohyehia.ecommerce.service.impl;
 
-import com.mohyehia.ecommerce.dao.CategoryDAO;
+import com.mohyehia.ecommerce.repository.CategoryRepository;
 import com.mohyehia.ecommerce.model.entity.Category;
 import com.mohyehia.ecommerce.service.framework.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -11,15 +11,15 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-    private final CategoryDAO categoryDAO;
+    private final CategoryRepository categoryRepository;
 
     @Override
     public List<Category> findAll() {
-        return categoryDAO.findAll();
+        return categoryRepository.findAll();
     }
 
     @Override
     public Category findById(int id) {
-        return categoryDAO.findById(id).orElse(null);
+        return categoryRepository.findById(id).orElse(null);
     }
 }
