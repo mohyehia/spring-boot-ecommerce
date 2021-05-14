@@ -7,7 +7,7 @@ import com.mohyehia.ecommerce.entity.Role;
 import com.mohyehia.ecommerce.entity.User;
 import com.mohyehia.ecommerce.entity.api.request.SignupRequest;
 import com.mohyehia.ecommerce.exception.ConflictException;
-import com.mohyehia.ecommerce.service.impl.UserServiceImpl;
+import com.mohyehia.ecommerce.service.framework.UserService;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.CoreMatchers;
 import org.junit.jupiter.api.BeforeAll;
@@ -45,7 +45,7 @@ class SignupControllerTest {
     private MessageSource messageSource;
 
     @MockBean
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @BeforeAll
     static void initializeFaker() {
