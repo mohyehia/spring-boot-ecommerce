@@ -1,6 +1,7 @@
 package com.mohyehia.ecommerce.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.mohyehia.ecommerce.constant.AppConstants;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
@@ -60,10 +61,13 @@ public class User implements UserDetails {
     )
     private Set<Role> roles;
 
+    @Transient
+    private Collection<? extends GrantedAuthority> authorities;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
-        roles.forEach(role -> grantedAuthorities.add(new SimpleGrantedAuthority(role.getCode())));
+        roles.forEach(role -> grantedAuthorities.add(new SimpleGrantedAuthority(AppConstants.ROLE_PREFIX + role.getCode())));
         return grantedAuthorities;
     }
 

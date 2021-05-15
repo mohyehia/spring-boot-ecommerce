@@ -47,7 +47,7 @@ public class JwtTokenProvider {
         String username = retrieveUsernameFromToken(token);
         return username != null
                 && username.equals(userDetails.getUsername())
-                && isNotExpiredToken(token);
+                && notExpiredToken(token);
     }
 
     public String retrieveUsernameFromToken(String token) {
@@ -67,11 +67,11 @@ public class JwtTokenProvider {
         }
     }
 
-    private boolean isNotExpiredToken(String token) {
+    private boolean notExpiredToken(String token) {
         Claims claims = getClaims(token);
         if (claims == null || claims.getExpiration() == null) {
             return false;
         }
-        return claims.getExpiration().before(new Date());
+        return claims.getExpiration().after(new Date());
     }
 }
