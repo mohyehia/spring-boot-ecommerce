@@ -8,6 +8,8 @@ import com.mohyehia.ecommerce.model.entity.Category;
 import com.mohyehia.ecommerce.model.entity.Product;
 import com.mohyehia.ecommerce.service.framework.CategoryService;
 import com.mohyehia.ecommerce.service.framework.ProductService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -23,11 +25,13 @@ import java.util.Locale;
 @RestController
 @RequestMapping("/api/v1/categories")
 @RequiredArgsConstructor
+@Api(value = "CategoryController")
 public class CategoryController {
     private final CategoryService categoryService;
     private final ProductService productService;
     private final MessageSource messageSource;
 
+    @ApiOperation(value = "retrieve all categories")
     @GetMapping
     public ResponseEntity<CategoryResponse> findAllCategories() {
         List<Category> categories = categoryService.findAll();
@@ -37,6 +41,7 @@ public class CategoryController {
         return new ResponseEntity<>(categoryResponse, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "retrieve one category by category id")
     @GetMapping("/{id}")
     public ResponseEntity<Category> findCategoryById(@PathVariable("id") int id, Locale locale) {
         Category category = categoryService.findById(id);
@@ -46,6 +51,7 @@ public class CategoryController {
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "retrieve all products that belong to a single category")
     @GetMapping("/{id}/products")
     public ResponseEntity<CategoryProductsResponse> findCategoryProducts(@PathVariable("id") int categoryId, Locale locale) {
         Category category = categoryService.findById(categoryId);

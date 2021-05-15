@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] PUBLIC_ENDPOINTS = {"/api/**/login", "/api/**/signup", "/api/**/categories/**", "/api/**/products/**"};
+    private static final String[] SWAGGER_ENDPOINTS = {"/swagger-resources/**", "/configuration/ui", "/configuration/security", "/swagger-ui/**", "/webjars/**", "/v2/api-docs", "/v3/api-docs"};
 
     private final AuthenticationService authenticationService;
     private final JwtAuthenticationEntryPoint authenticationEntryPoint;
@@ -52,6 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(PUBLIC_ENDPOINTS)
                 .permitAll()
+                .antMatchers(SWAGGER_ENDPOINTS)
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -67,7 +70,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AuthenticationFilter authenticationFilter(){
+    public AuthenticationFilter authenticationFilter() {
         return new AuthenticationFilter(authenticationService, jwtTokenProvider);
     }
 }
