@@ -2,7 +2,7 @@ package com.mohyehia.ecommerce.controller;
 
 import com.mohyehia.ecommerce.model.api.request.JwtAuthenticationResponse;
 import com.mohyehia.ecommerce.model.api.request.LoginRequest;
-import com.mohyehia.ecommerce.model.dto.UserDTO;
+import com.mohyehia.ecommerce.model.api.response.UserProfile;
 import com.mohyehia.ecommerce.model.entity.User;
 import com.mohyehia.ecommerce.service.AuthenticationService;
 import com.mohyehia.ecommerce.utility.JwtTokenProvider;
@@ -37,16 +37,11 @@ public class LoginController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         UserDetails userDetails = authenticationService.loadUserByUsername(loginRequest.getUsernameOrEmail());
         String jwtToken = jwtTokenProvider.generateToken(userDetails);
-        return new ResponseEntity<>(new JwtAuthenticationResponse(jwtToken, populateUserDTOFromUserDetails(userDetails)), HttpStatus.OK);
+        return new ResponseEntity<>(new JwtAuthenticationResponse(jwtToken, populateUserProfileFromUserDetails(userDetails)), HttpStatus.OK);
     }
 
-    private UserDTO populateUserDTOFromUserDetails(UserDetails userDetails) {
+    private UserProfile populateUserProfileFromUserDetails(UserDetails userDetails) {
         User user = (User) userDetails;
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUsername(user.getUsername());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setFirstName(user.getFirstName());
-        userDTO.setLastName(user.getLastName());
-        return userDTO;
+        return new UserProfile(user.getUsername(), user.getEmail(), user.getFirstName(), user.getLastName());
     }
 }
