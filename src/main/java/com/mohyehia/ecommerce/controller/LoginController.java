@@ -1,6 +1,6 @@
 package com.mohyehia.ecommerce.controller;
 
-import com.mohyehia.ecommerce.model.api.request.JwtAuthenticationResponse;
+import com.mohyehia.ecommerce.model.api.response.JwtAuthenticationResponse;
 import com.mohyehia.ecommerce.model.api.request.LoginRequest;
 import com.mohyehia.ecommerce.model.api.response.UserProfile;
 import com.mohyehia.ecommerce.model.entity.User;

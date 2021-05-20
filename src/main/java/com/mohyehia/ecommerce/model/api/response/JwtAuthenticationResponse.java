@@ -1,4 +1,4 @@
-package com.mohyehia.ecommerce.model.api.request;
+package com.mohyehia.ecommerce.model.api.response;
 
 import com.mohyehia.ecommerce.model.api.response.UserProfile;
 import lombok.Data;
