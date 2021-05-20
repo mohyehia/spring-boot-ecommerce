@@ -41,4 +41,8 @@ public class Product {
 
     @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
+
+    @OneToOne
+    @JoinColumn(name = "STOCK_ID", referencedColumnName = "PRODUCT_ID")
+    private Stock stock;
 }
