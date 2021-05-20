@@ -1,9 +1,9 @@
 package com.mohyehia.ecommerce.service.impl;
 
 import com.mohyehia.ecommerce.constant.AppConstants;
-import com.mohyehia.ecommerce.repository.UserRepository;
 import com.mohyehia.ecommerce.model.entity.Role;
 import com.mohyehia.ecommerce.model.entity.User;
+import com.mohyehia.ecommerce.repository.UserRepository;
 import com.mohyehia.ecommerce.service.framework.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -37,5 +37,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email).orElse(null);
+    }
+
+    @Override
+    public User findByUsernameOrEmail(String username, String email) {
+        return userRepository.findByUsernameOrEmail(username, email).orElse(null);
     }
 }

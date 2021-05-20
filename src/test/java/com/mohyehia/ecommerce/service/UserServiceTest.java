@@ -60,6 +60,24 @@ class UserServiceTest {
         Assertions.assertThat(retrievedUser.getUsername()).isEqualTo(user.getUsername());
     }
 
+    @Test
+    @DisplayName("test finding user by username or email address will return the user")
+    void when_calling_find_by_existing_username_or_email_address_then_user_is_returned() {
+        User user = populateRandomUser();
+        BDDMockito.given(userService.findByUsernameOrEmail(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).willReturn(user);
+        User retrievedUser = userService.findByUsernameOrEmail(user.getUsername(), user.getUsername());
+        Assertions.assertThat(retrievedUser).isNotNull();
+        Assertions.assertThat(retrievedUser.getUsername()).isEqualTo(user.getUsername());
+    }
+
+    @Test
+    @DisplayName("test finding user by username or email address and he is not found")
+    void when_calling_find_by_not_existing_username_or_email_address_then_null_is_returned() {
+        BDDMockito.given(userService.findByUsernameOrEmail(ArgumentMatchers.anyString(), ArgumentMatchers.anyString())).willReturn(null);
+        User retrievedUser = userService.findByUsernameOrEmail("username", "username");
+        Assertions.assertThat(retrievedUser).isNull();
+    }
+
     private User populateRandomUser() {
         User user = new User();
         user.setUsername(faker.name().username());
