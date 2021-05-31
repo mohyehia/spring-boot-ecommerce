@@ -2,6 +2,7 @@ package com.mohyehia.ecommerce.controller;
 
 import com.mohyehia.ecommerce.exception.ResourceNotFoundException;
 import com.mohyehia.ecommerce.model.api.response.ProductResponse;
+import com.mohyehia.ecommerce.model.dto.ProductDTO;
 import com.mohyehia.ecommerce.model.entity.Product;
 import com.mohyehia.ecommerce.service.framework.ProductService;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +28,13 @@ public class ProductController {
 
     @GetMapping
     public ResponseEntity<ProductResponse> retrieveAll() {
-        List<Product> products = productService.findAll();
+        List<ProductDTO> products = productService.retrieveAllProducts();
         return new ResponseEntity<>(new ProductResponse(products), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> retrieveId(@PathVariable("id") long id, Locale locale) {
-        Product product = productService.findById(id);
+    public ResponseEntity<ProductDTO> retrieveId(@PathVariable("id") long id, Locale locale) {
+        ProductDTO product = productService.findProductById(id);
         if (product == null) {
             throw new ResourceNotFoundException(messageSource.getMessage("PRODUCT_NOT_FOUND", new Object[]{}, locale));
         }

@@ -4,8 +4,8 @@ import com.mohyehia.ecommerce.exception.ResourceNotFoundException;
 import com.mohyehia.ecommerce.model.api.response.CategoryProductsResponse;
 import com.mohyehia.ecommerce.model.api.response.CategoryResponse;
 import com.mohyehia.ecommerce.model.api.response.ProductResponse;
+import com.mohyehia.ecommerce.model.dto.ProductDTO;
 import com.mohyehia.ecommerce.model.entity.Category;
-import com.mohyehia.ecommerce.model.entity.Product;
 import com.mohyehia.ecommerce.service.framework.CategoryService;
 import com.mohyehia.ecommerce.service.framework.ProductService;
 import io.swagger.annotations.Api;
@@ -58,7 +58,7 @@ public class CategoryController {
         if (category == null) {
             throw new ResourceNotFoundException(messageSource.getMessage("CATEGORY_NOT_FOUND", new Object[]{}, locale));
         }
-        List<Product> products = productService.findByCategoryId(categoryId);
+        List<ProductDTO> products = productService.findProductsByCategoryId(categoryId);
         return new ResponseEntity<>(new CategoryProductsResponse(category, new ProductResponse(products)), HttpStatus.OK);
     }
 }
